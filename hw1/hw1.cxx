@@ -25,6 +25,8 @@
  *   Plot two hist, run in cint
  *  2013.04.17 ver 1.0
  *   Remove vector, use fixed name
+ *  2013.04.20 ver 1.1
+ *   Use DybStyle class
  ***********************************************/
 #include <iostream>
 #include <sstream>
@@ -45,18 +47,20 @@
 #include "TPaveStats.h"
 #include "TList.h"
 #include "TLegend.h"
+#include "DybStyle.h"
 
 using namespace std;
 typedef vector<TH1*> HistV;
 double landauf(double *x, double *par);
 int main(){
-#include "dayabayStyle.C"
-  gROOT->SetStyle("dybStyle");
+//#include "dayabayStyle.C"
+  //gROOT->SetStyle("dybStyle");
+  DybStyle::get()->cd();
+  gROOT->ForceStyle();
   //define landau formula
   TF1* myf = new TF1("mylandau",landauf,-3,10,3);
   myf->SetParameters(1.0,2,1);
-
-<<<<<<< HEAD
+  /*
   //create a vector for holding hist
   HistV histv;
   
@@ -81,9 +85,8 @@ int main(){
     mg->Add((new TGraph())->SetHistogram(histv[i]));
   }
   mg->Draw("AP");
-=======
+  */
   TCanvas* canvas = new TCanvas("myc","HW1",800,600);
->>>>>>> b4006619619d11f1cbd9925fd273272acc35c46f
 
   TH1F* h1 = new TH1F("h1","Landau 100 entries",15,-3,10);
   TH1F* h2 = new TH1F("h2","Landau 1000 entries",60,-3,10);
